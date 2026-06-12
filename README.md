@@ -1,18 +1,11 @@
 # bst-library
 
-[![Website](https://img.shields.io/badge/website-bst--library.404piyush.me-3b82f6?style=flat-square)](https://bst-library.404piyush.me)
-[![Release v1.0.0](https://img.shields.io/badge/release-v1.0.0-22c55e?style=flat-square)](https://github.com/404Piyush/bst-library/releases/tag/v1.0.0)
-[![CI](https://img.shields.io/badge/CI-passing-22c55e?style=flat-square)](.github/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-f59e0b?style=flat-square)](LICENSE)
-[![Topics](https://img.shields.io/github/topics/404Piyush/bst-library?style=flat-square)](https://github.com/404Piyush/bst-library)
+A small, dependency-free **binary search tree** library written
+in C11. Generic over the key (via a user-supplied comparator)
+with a `void*` payload. Comes with a real test suite, a
+microbenchmark, a worked example, and CI on Linux + macOS.
 
-A small, dependency-free **binary search tree** library written in C11.
-Generic over the key (via a user-supplied comparator) with a `void*`
-payload. Comes with a real test suite, a microbenchmark, a worked
-example, and CI on Linux + macOS.
-
-**Live site:** [bst-library.404piyush.me](https://bst-library.404piyush.me) ·
-**See also:** [DEPLOY.md](DEPLOY.md) for the Netlify setup.
+Live site: [bst-library.404piyush.me](https://bst-library.404piyush.me)
 
 ## Features
 
