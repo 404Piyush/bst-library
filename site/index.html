@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bst-library · A generic binary-search tree in C11</title>
+  <meta name="description" content="A small, dependency-free generic binary-search tree library in C11. void* payloads, caller-supplied comparator, 74 tests, ~3.5M insert/s on M-series.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="bst-library · A generic binary-search tree in C11">
+  <meta property="og:description" content="A small, dependency-free generic binary-search tree library in C11. 74 tests, ~3.5M insert/s.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <a class="logo" href="index.html">bst<span>-library</span></a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#api">API</a>
+        <a href="#bench">Benchmarks</a>
+        <a href="https://github.com/404Piyush/bst-library">GitHub →</a>
+      </nav>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="badge">v1.0.0 · MIT</span>
+        <h1>A generic binary-search tree in C11.</h1>
+        <p class="lede">Generic, dependency-free, ~500 LOC.  Stores <code>void*</code> payloads and accepts a user-supplied comparator.  74 assertions, all passing.  ~3.5 M insert/s on M-series.</p>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/404Piyush/bst-library#install">Install</a>
+          <a class="btn ghost" href="https://github.com/404Piyush/bst-library#api">View API</a>
+        </div>
+        <pre class="install"><code>$ git clone https://github.com/404Piyush/bst-library.git
+$ cd bst-library && make test
+74 passed, 0 failed</code></pre>
+      </div>
+      <div class="hero-svg">
+        <object type="image/svg+xml" data="tree.svg" aria-label="BST example with 7 nodes"></object>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="features" class="container">
+  <h2>Why bst-library?</h2>
+  <div class="grid three">
+    <div class="card">
+      <h3>Generic</h3>
+      <p>Stores <code>void*</code> payloads and accepts a user-supplied comparator.  The library never knows what your keys are — it only knows their order relation.</p>
+    </div>
+    <div class="card">
+      <h3>No malloc inside</h3>
+      <p>Caller-supplied allocator hook.  Use the system <code>malloc</code>, a bump arena, or your own pool.  The library is portable to freestanding environments.</p>
+    </div>
+    <div class="card">
+      <h3>Tested &amp; benchmarked</h3>
+      <p>74 assertions across 8 test cases — all passing.  Microbenchmark suite on every CI run.  ~3.5 M insert/s, ~4.8 M find/s on M-series.</p>
+    </div>
+  </div>
+</section>
+
+<section id="api" class="container">
+  <h2>API at a glance</h2>
+  <p>The full surface area is six functions:</p>
+  <pre class="code"><code>bst  *bst_create   (bst_cmp_fn cmp, bst_free_fn free_key);
+void  bst_destroy  (bst *t, bst_free_fn free_key, bst_free_fn free_payload);
+int   bst_insert   (bst *t, const void *key, void *payload);
+void *bst_find     (const bst *t, const void *key);
+int   bst_remove   (bst *t, const void *key);
+void  bst_inorder  (const bst *t, bst_visit_fn visit, void *ctx);</code></pre>
+
+  <h3>Worked example</h3>
+  <pre class="code"><code>#include &lt;bst.h&gt;
+
+int cmp_int(const void *a, const void *b) { return *(int*)a - *(int*)b; }
+
+int main(void) {
+    bst *t = bst_create(cmp_int, NULL);
+    int keys[] = {5, 3, 7, 1, 4, 6, 8};
+    for (int i = 0; i &lt; 7; i++) bst_insert(t, &amp;keys[i], &amp;keys[i]);
+    bst_inorder(t, print_int, NULL);
+    bst_destroy(t, NULL, NULL);
+}</code></pre>
+</section>
+
+<section id="bench" class="container">
+  <h2>Benchmarks</h2>
+  <p>Apple M-series, single thread, <code>-O2</code>:</p>
+  <table class="bench">
+    <thead><tr><th>Operation</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>insert</td><td>~3.5 M ops/s</td></tr>
+      <tr><td>find</td><td>~4.8 M ops/s</td></tr>
+      <tr><td>inorder</td><td>~6.0 M nodes/s</td></tr>
+      <tr><td>remove</td><td>~2.8 M ops/s</td></tr>
+    </tbody>
+  </table>
+  <p class="hint">Run <code>make bench</code> in the repo to reproduce.</p>
+</section>
+
+<section class="container">
+  <h2>Why a BST and not a hash table?</h2>
+  <p>A BST keeps keys in sorted order, so <code>in-order</code> is free.  Insertion order is deterministic — easier to test.  It is the simplest dynamic data structure that is not a list.</p>
+</section>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://github.com/404Piyush/bst-library">Source on GitHub</a> ·
+      <a href="https://github.com/404Piyush/bst-library/releases/tag/v1.0.0">v1.0.0</a> ·
+      <a href="https://github.com/404Piyush">More projects</a> ·
+      <a href="https://404piyush.me">404piyush.me</a>
+    </p>
+    <p class="small">MIT · built by <a href="https://github.com/404Piyush">@404Piyush</a> · curriculum: gpu-engineering</p>
+  </div>
+</footer>
+
+</body>
+</html>
