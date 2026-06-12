@@ -1,7 +1,15 @@
 CC      ?= clang
-ARCH    ?= -arch x86_64
 CFLAGS  ?= -O2 -Wall -Wextra -Wpedantic -std=c11 -Iinclude
 DEBUG_FLAGS ?= -O0 -g -fno-omit-frame-pointer
+
+# On macOS, build for the host arch (x86_64 or arm64).
+# On Linux, no -arch flag.
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    ARCH := -arch $(shell uname -m | sed 's/arm64/arm64/;s/x86_64/x86_64/')
+else
+    ARCH :=
+endif
 
 BUILD   := build
 LIB     := $(BUILD)/libbst.a
