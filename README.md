@@ -217,16 +217,17 @@ MIT. See [`LICENSE`](LICENSE).
 
 ## Related projects
 
-This was project 4 of the
+One of the
 **[gpu-engineering curriculum](https://github.com/404Piyush/gpu-engineering)**,
-a three-year systems and hardware roadmap. Other projects so far:
+a three-year systems and hardware roadmap. More projects
+incoming.
 
-- **[arena-allocator](https://github.com/404Piyush/arena-allocator)** — bump
-  arena memory allocator in C11 (week 8)
+Other projects so far:
+
+- **[arena-allocator](https://github.com/404Piyush/arena-allocator)** —
+  bump arena memory allocator in C11 (week 8)
 - **[pipe-shell](https://github.com/404Piyush/pipe-shell)** — POSIX-ish
   command interpreter in C11 (week 11)
-
-More projects incoming.
 
 ## Changelog
 
