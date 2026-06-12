@@ -6,6 +6,8 @@
  * Pass N as argv[1] (default 100000). Reports ops/sec for each phase
  * and the final tree height.
  */
+#define _POSIX_C_SOURCE 200809L
+
 #include "bst.h"
 
 #include <stdio.h>
