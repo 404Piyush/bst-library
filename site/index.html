@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>bst-library — A generic binary-search tree in C11</title>
-  <meta name="description" content="A small dependency-free binary-search tree library in C11. Generic over the key, caller-supplied comparator, 74 tests passing, ~3.5M insert/s on M-series.">
+  <meta name="description" content="A small dependency-free binary-search tree library in C11. Generic over the key, caller-supplied comparator, 74 tests passing, ~2.8M insert/s on M-series.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -132,17 +132,20 @@ int    bst_empty  (const bst *t);</code></pre>
   <table>
     <thead><tr><th>Operation</th><th>Rate</th></tr></thead>
     <tbody>
-      <tr><td>insert</td><td>~3.5 M ops/s</td></tr>
-      <tr><td>find</td><td>~4.8 M ops/s</td></tr>
-      <tr><td>inorder</td><td>~6.0 M nodes/s</td></tr>
-      <tr><td>remove</td><td>~2.8 M ops/s</td></tr>
+      <tr><td>insert</td><td>~2.8 M ops/s</td></tr>
+      <tr><td>find</td><td>~4.5 M ops/s</td></tr>
+      <tr><td>inorder</td><td>~4.5 M nodes/s</td></tr>
+      <tr><td>remove</td><td>~2.5 M ops/s</td></tr>
     </tbody>
   </table>
 
   <p>
-    These are not cryptographic. They are realistic for a workload
-    that inserts, looks up, and removes the same data repeatedly —
-    which is most of what application code does with a tree.
+    These are ballpark numbers from <code>bench/bench_bst.c</code>
+    on an Apple M-series, single thread, <code>-O2</code>. They
+    shift with input distribution (sorted input degenerates the
+    tree to a linked list and the find rate halves) and with
+    cache warmth. Run <code>make bench</code> on your machine to
+    see the actual numbers.
   </p>
 
   <h2>Tests</h2>
