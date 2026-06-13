@@ -107,10 +107,9 @@ Apple M-series, single thread, `-O2`:
 
 | Operation | Rate         |
 |-----------|--------------|
-| insert    | ~3.5 M ops/s |
-| find      | ~4.8 M ops/s |
-| inorder   | ~6.0 M nodes/s |
-| remove    | ~2.8 M ops/s |
+| insert    | ~2.8 M ops/s |
+| find      | ~4.5 M ops/s |
+| remove    | ~2.5 M ops/s |
 
 Run `make bench` to reproduce.
 
